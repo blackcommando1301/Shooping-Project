@@ -1,6 +1,14 @@
 import React from "react";
+import { useParams } from "react-router";
+import { useSelector } from "react-redux/";
+import { useDispatch } from "react-redux/es/exports";
+import { addCreator } from "../Redux/action";
 
 const Preview = () => {
+  let {id}=useParams();
+ let state=useSelector((state)=>state);
+ let co=state[id];
+ let dispatch=useDispatch();
   return (
     <div>
       <section style={{ backgroundColor: "#eee" }}>
@@ -9,14 +17,14 @@ const Preview = () => {
             <div className="col-md-12 col-lg-4 mb-4 mb-lg-0">
               <div className="card text-black">
                 <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-product-cards/img1.webp"
+                  src={co.img}
                   className="card-img-top"
                   alt="iPhone"
                 />
                 <div className="card-body">
                   <div className="text-center mt-1">
-                    <h4 className="card-title">iPhone X</h4>
-                    <h6 className="text-primary mb-1 pb-3">Starting at $399</h6>
+                    <h4 className="card-title">{co.name}</h4>
+                    <h3 className="text-primary mb-1 pb-3">{co.price} $</h3>
                   </div>
 
                   <div className="text-center">
@@ -24,43 +32,28 @@ const Preview = () => {
                       className="p-3 mx-n3 mb-4"
                       style={{ backgroundColor: "#eff1f2" }}
                     >
-                      <h5 className="mb-0">Quick Look</h5>
+                      <h5 className="mb-0">Description</h5>
                     </div>
 
                     <div className="d-flex flex-column mb-4">
-                      <span className="h1 mb-0">5.8″</span>
-                      <span>Super Retina HD display1</span>
-                    </div>
-
-                    <div className="d-flex flex-column mb-4">
-                      <span className="h1 mb-0">
-                        <i className="fas fa-camera-retro"></i>
-                      </span>
-                      <ul className="list-unstyled mb-0">
-                        <li aria-hidden="true">—</li>
-                        <li>Wide</li>
-                        <li>Telephoto</li>
-                        <li aria-hidden="true">—</li>
-                      </ul>
-                    </div>
-
-                    <div className="d-flex flex-column mb-4">
-                      <span className="h1 mb-0">2x</span>
-                      <span>Optical zoom range</span>
+                      
+                      <span>{co.des}</span>
                     </div>
 
                     <div
                       className="p-3 mx-n3 mb-4"
                       style={{ backgroundColor: "#eff1f2" }}
                     >
-                      <h5 className="mb-0">Capacity</h5>
+                      <h5 className="mb-0">Features</h5>
                     </div>
 
-                    <div className="d-flex flex-column mb-4 lead">
-                      <span className="mb-2">64GB</span>
-                      <span className="mb-2">256GB</span>
-                      <span style={{ color: "transparent" }}>0</span>
-                    </div>
+                   
+
+                    <ul className="list-group list-group-flush">
+                        {co.points.map((des) => {
+                          return <li className="list-group-item">{des}</li>;
+                        })}
+                      </ul>
                   </div>
 
                   <div className="d-flex flex-row">
@@ -68,8 +61,12 @@ const Preview = () => {
                     <button
                       type="button"
                       className="btn btn-danger flex-fill ms-1"
+                      onClick={()=>{
+                            dispatch(addCreator(co.id))
+                            alert("added to cart ");
+                          }}
                     >
-                      Buy now
+                      Add To Cart
                     </button>
                   </div>
                 </div>

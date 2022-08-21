@@ -1,26 +1,38 @@
-import React from 'react'
+import React from "react";
+import { useHistory } from "react-router";
 
 const Navbar = () => {
+  let history = useHistory();
   return (
     <>
-   <nav className="navbar navbar-expand-lg navbar-light bg-light ">
-  <div className="container-fluid">
-    <a className="navbar-brand" href=" ">Bazar</a>
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=" navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div className="navbar-nav">
-        <a className="nav-link active" aria-current="page" href=" ">Home</a>
-        <a className="nav-link" href=" ">Features</a>
-        <a className="nav-link" href=" ">Pricing</a>
-       
-      </div>
-    </div>
-  </div>
-</nav>
-</>
-  )
-}
+      <nav className="navbar navbar-expand-lg navbar-light bg-light ">
+        <div className="container-fluid">
+          <h3
+            onClick={() => {
+              history.push(`/home`);
+            }}
+            className="navbar-brand"
+            href=" "
+          >
+            Lux Life
+          </h3>
 
-export default Navbar
+          <div
+            className="collapse navbar-collapse"
+            id="navbarNavAltMarkup"
+          ></div>
+          <button
+            onClick={() => {
+              history.push(`/cart`);
+            }}
+            className="btn btn-outline-warning "
+          >
+            <span className="material-symbols-outlined">shopping_cart</span>
+          </button>
+        </div>
+      </nav>
+    </>
+  );
+};
+
+export default Navbar;
